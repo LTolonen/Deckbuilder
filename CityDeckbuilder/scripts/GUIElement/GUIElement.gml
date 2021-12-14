@@ -93,6 +93,17 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 		}
 	}
 	
+	/// @function set_depth
+	/// @param depth
+	static set_depth = function(_depth)
+	{
+		if(_depth == depth)
+			return;
+		depth = _depth;
+		gui.remove_gui_element(self);
+		gui.add_gui_element(self);
+	}
+	
 	///@function move_by
 	///@param dx
 	///@param dy

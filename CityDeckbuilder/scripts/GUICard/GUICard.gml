@@ -1,4 +1,5 @@
 #macro GUI_LAYER_CARDS -100
+#macro GUI_LAYER_HOVER_CARDS -500
 #macro GUI_CARD_WIDTH 80
 #macro GUI_CARD_HEIGHT 100
 #macro GUI_CARD_EXPANDED_WIDTH 110
@@ -45,6 +46,11 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		{
 			_target_width = GUI_CARD_EXPANDED_WIDTH;
 			_target_height = GUI_CARD_EXPANDED_HEIGHT;
+			set_depth(GUI_LAYER_HOVER_CARDS);
+		}
+		else
+		{
+			set_depth(GUI_LAYER_CARDS);	
 		}
 		var _new_width = width + (_target_width-width) div 2;
 		var _new_height = height + (_target_height-height) div 2;
