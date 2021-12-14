@@ -6,6 +6,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 	discard_pile = new List();
 	hand = new List();
 	played_cards = new List();
+	shop = new Shop();
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;
 	energy_max = 1;
@@ -36,6 +37,9 @@ function GameState(_card_set) : GameEventSubject() constructor
 			discard_pile.add_item(new Card(entity_set, _generator_data));
 			game_change_resource(RESOURCE.POWER,1);
 		}
+		
+		//Populate Shop
+		shop.shop_populate(self);
 		
 		game_turn_begin();
 	}

@@ -46,9 +46,12 @@
     {"id":{"name":"Spreading","path":"scripts/Spreading/Spreading.yy",},"order":4,},
     {"id":{"name":"GameGUI","path":"scripts/GameGUI/GameGUI.yy",},"order":7,},
     {"id":{"name":"EntitySet","path":"scripts/EntitySet/EntitySet.yy",},"order":1,},
+    {"id":{"name":"Shop","path":"scripts/Shop/Shop.yy",},"order":7,},
     {"id":{"name":"GUIHand","path":"scripts/GUIHand/GUIHand.yy",},"order":8,},
+    {"id":{"name":"GUIShop","path":"scripts/GUIShop/GUIShop.yy",},"order":11,},
     {"id":{"name":"CardDiscardedFromHandGameEvent","path":"scripts/CardDiscardedFromHandGameEvent/CardDiscardedFromHandGameEvent.yy",},"order":7,},
     {"id":{"name":"Effect","path":"scripts/Effect/Effect.yy",},"order":0,},
+    {"id":{"name":"CardAddedToShopGameEvent","path":"scripts/CardAddedToShopGameEvent/CardAddedToShopGameEvent.yy",},"order":9,},
     {"id":{"name":"RoomMain","path":"rooms/RoomMain/RoomMain.yy",},"order":0,},
   ],
   "Options": [

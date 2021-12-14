@@ -14,7 +14,8 @@ enum CARD_FRAME_TYPE
 /// @param strength 
 /// @param text
 /// @param frame_type
-function CardData(_name, _buy_cost, _energy_cost, _strength, _text, _frame_type) constructor
+/// @param rarity_weighting
+function CardData(_name, _buy_cost, _energy_cost, _strength, _text, _frame_type, _rarity_weighting) constructor
 {
 	name = _name;
 	buy_cost = _buy_cost;
@@ -23,6 +24,7 @@ function CardData(_name, _buy_cost, _energy_cost, _strength, _text, _frame_type)
 	text = _text;
 	text_tokenised = string_tokenise(_text,FontVector7);
 	frame_type = _frame_type;
+	rarity_weighting = _rarity_weighting;
 	
 	is_playable = true;
 	
