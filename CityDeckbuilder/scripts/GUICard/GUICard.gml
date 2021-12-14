@@ -52,9 +52,16 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		if(width != _new_width || height != _new_height)
 			resize(_new_width, _new_height);
 			
+		var tx = target_center_x;
+		var ty = target_center_y;
+		if(is_hovered())
+		{
+			tx = clamp(tx,width/2,640-width/2);
+			ty = clamp(ty,height/2,360-height/2);
+		}
 			
-		var _dx = (target_center_x - width div 2) - x;
-		var _dy = (target_center_y - height div 2) - y;
+		var _dx = (tx - width div 2) - x;
+		var _dy = (ty - height div 2) - y;
 		if(abs(_dx) < 2)
 		{
 			x += _dx;
