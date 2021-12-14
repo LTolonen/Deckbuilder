@@ -3,6 +3,7 @@
 function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) constructor
 {
 	playable_cards = get_playable_cards(_game_state);
+	buyable_cards = get_buyable_cards(_game_state);
 	
 	static toString = function()
 	{
@@ -21,6 +22,22 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 			}
 		}
 		return _playable_cards;
+	}
+	
+	static get_buyable_cards = function(_game_state)
+	{
+		var _buyable_cards = new List();
+		for(var i=0; i<SHOP_NUM_SLOTS; i++)
+		{
+			var _card = _game_state.shop.cards[i];
+			if(_card == -1)
+				continue;
+			if(_card.card_can_be_bought(_game_state))
+			{
+				_buyable_cards.add_item(_card.entity_id);	
+			}
+		}
+		return _buyable_cards;
 	}
 	
 	static input_request_validate_input = function(_input, _game_state)

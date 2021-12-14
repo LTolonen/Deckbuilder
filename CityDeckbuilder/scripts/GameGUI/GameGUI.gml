@@ -3,7 +3,7 @@ function GameGUI() : GUI() constructor
 	input_provider = new InputProvider();
 	gui_entities = array_create(0);
 	
-	gui_shop = new GUIShop(self,0,0,SHOP_NUM_SLOTS*(GUI_CARD_WIDTH+6),GUI_CARD_HEIGHT+6);
+	gui_shop = new GUIShop(self,0,0,SHOP_NUM_SLOTS*(GUI_CARD_WIDTH+8),GUI_CARD_HEIGHT+6);
 	gui_resource_indicators = array_create(RESOURCE.COUNT,-1);
 	for(var i=0; i<RESOURCE.COUNT; i++)
 	{
