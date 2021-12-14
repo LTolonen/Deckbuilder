@@ -28,7 +28,7 @@ function draw_tokenised_text(_x,_y,_tokenised_text_fitting, _halign, _valign)
 		{
 			_row_y -= _tokenised_text_fitting.row_height*_tokenised_text_fitting.num_rows div 2;	
 		}
-		else
+		else if(_valign == fa_bottom)
 		{
 			_row_y -= _tokenised_text_fitting.row_height*_tokenised_text_fitting.num_rows;
 		}

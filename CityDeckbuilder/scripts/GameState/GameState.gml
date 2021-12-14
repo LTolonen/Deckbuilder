@@ -1,3 +1,12 @@
+enum ZONE
+{
+	SHOP,
+	HAND,
+	DRAW_PILE,
+	DISCARD_PILE,
+	PLAY
+}
+
 function GameState(_card_set) : GameEventSubject() constructor
 {
 	card_set = _card_set;

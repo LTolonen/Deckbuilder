@@ -34,7 +34,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_drawn = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id);
+		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id, ZONE.HAND);
 		gui.gui_hand.gui_cards.add_item(_gui_card);
 	}
 	
@@ -66,7 +66,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_added_to_shop = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id);
+		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id, ZONE.SHOP);
 		gui.gui_shop.gui_cards[_game_event.slot_index] = _gui_card;
 	}
 }

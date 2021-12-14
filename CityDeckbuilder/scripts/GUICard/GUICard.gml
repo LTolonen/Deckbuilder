@@ -14,10 +14,12 @@
 /// @param y
 /// @param card_data
 /// @param card_entity_id
-function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
+/// @param zone
+function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
 {
 	card_data = _card_data;
 	card_entity_id = _card_entity_id;
+	zone = _zone;
 	
 	gui.gui_entities[card_entity_id] = self;
 	
@@ -32,6 +34,8 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 	target_center_y = y+height div 2;
 	
 	highlighted = false;
+	
+	buy_text_fitting = new TokenisedTextFitting(string_tokenise("Buy for "+string(card_data.buy_cost)+" {M}", FontVector7),100,20,4,17);
 	
 	static cleanup = function()
 	{
@@ -105,7 +109,7 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		//Highlight
 		if(highlighted)
 		{
-			draw_cornered_rectangle(x-3,y-3,x+width-1+3,y+height-1+3,COLOUR.WHITE,SprCornerRounded2Px);
+			draw_cornered_rectangle(x-2,y-2,x+width-1+2,y+height-1+2,COLOUR.WHITE,SprCornerRounded2Px);
 		}
 		
 		//Frame
@@ -140,6 +144,16 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 			draw_set_valign(fa_middle);
 			draw_set_font(FontVector7);
 			draw_text(_icon_x+9,_icon_y+10,string(card_data.energy_cost));
+		}
+		
+		//Buy Cost
+		if(zone == ZONE.SHOP)
+		{
+			draw_set_color(COLOUR.WHITE);
+			draw_set_halign(fa_center);
+			draw_set_valign(fa_top);
+			draw_set_font(FontVector7);
+			draw_tokenised_text(x+width/2,y+height+2,buy_text_fitting,fa_center,fa_top);
 		}
 	}
 	
