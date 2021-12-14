@@ -142,7 +142,10 @@ function GameState(_card_set) : GameEventSubject() constructor
 	static game_play_card = function(_card_entity_id)
 	{
 		var _card = entity_set.entity_set_get_entity(_card_entity_id);
-		game_change_resource(RESOURCE.ENERGY,-_card.card_data.energy_cost);
+		if(_card.card_data.energy_cost != 0)
+		{
+			game_change_resource(RESOURCE.ENERGY,-_card.card_data.energy_cost);
+		}
 		for(var i=0; i<_card.card_data.num_on_play_effects; i++)
 		{
 			_card.card_data.on_play_effects[i].effect_perform(self);	
