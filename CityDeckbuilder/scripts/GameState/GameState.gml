@@ -162,4 +162,29 @@ function GameState(_card_set) : GameEventSubject() constructor
 		game_discard_card(_card_entity_id);
 		game_event_subject_notify(new CardPlayedGameEvent(_card_entity_id,_card.card_data));
 	}
+	
+	/// @function game_buy_card
+	/// @param card_entity_id
+	static game_buy_card = function(_card_entity_id)
+	{
+		var _card = entity_set.entity_set_get_entity(_card_entity_id);
+		if(_card.card_data.buy_cost != 0)
+		{
+			game_change_resource(RESOURCE.MONEY,-_card.card_data.buy_cost);
+		}
+		if(_card.card_data.strength != 0)
+		{
+			game_change_resource(RESOURCE.POWER,_card.card_data.strength);
+		}
+		for(var i=0; i<SHOP_NUM_SLOTS; i++)
+		{
+			if(shop.cards[i] == -1)
+				continue;
+			if(shop.cards[i].entity_id != _card_entity_id)
+				continue;
+			shop.cards[i] = -1;
+		}
+		hand.add_item(_card);
+		game_event_subject_notify(new CardBoughtGameEvent(_card_entity_id,_card.card_data));
+	}
 }

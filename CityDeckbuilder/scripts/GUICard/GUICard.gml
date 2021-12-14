@@ -161,7 +161,14 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 	{
 		if(gui.gui_state.gui_state_type == GUI_STATE_TYPE.GAME_MAIN)
 		{
-			gui.game_gui_provide_input(new PlayCardInput(card_entity_id));
+			if(zone == ZONE.HAND)
+			{
+				gui.game_gui_provide_input(new PlayCardInput(card_entity_id));
+			}
+			else if(zone == ZONE.SHOP)
+			{
+				gui.game_gui_provide_input(new BuyCardInput(card_entity_id));	
+			}
 		}
 	}
 	

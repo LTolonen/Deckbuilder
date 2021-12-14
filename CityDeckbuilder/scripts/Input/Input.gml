@@ -2,6 +2,7 @@ enum INPUT_TYPE
 {
 	TURN_END,
 	PLAY_CARD,
+	BUY_CARD,
 	COUNT
 }
 

@@ -10,6 +10,7 @@ function GameController(_card_set) constructor
 	on_input = array_create(INPUT_TYPE.COUNT,-1);
 	on_input[INPUT_TYPE.TURN_END] = controller_turn_end;
 	on_input[INPUT_TYPE.PLAY_CARD] = controller_play_card;
+	on_input[INPUT_TYPE.BUY_CARD] = controller_buy_card;
 	
 	static controller_init = function()
 	{
@@ -62,6 +63,14 @@ function GameController(_card_set) constructor
 	static controller_play_card = function(_input)
 	{
 		game_state.game_play_card(_input.card_entity_id);
+		controller_request_input(new MainInputRequest(game_state));
+	}
+	
+	/// @function controller_buy_card
+	/// @param input
+	static controller_buy_card = function(_input)
+	{
+		game_state.game_buy_card(_input.card_entity_id);
 		controller_request_input(new MainInputRequest(game_state));
 	}
 }

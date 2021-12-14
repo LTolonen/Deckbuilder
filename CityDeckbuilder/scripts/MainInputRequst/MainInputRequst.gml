@@ -70,6 +70,33 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 				if(!_found_in_playable_cards)
 					return false;
 				return true;
+			case INPUT_TYPE.BUY_CARD:
+				var _found_in_shop = false;
+				for(var i=0; i<SHOP_NUM_SLOTS; i++)
+				{
+					if(_game_state.shop.cards[i] == -1)
+						continue;
+					if(_game_state.shop.cards[i].entity_id == _input.card_entity_id)
+					{
+						_found_in_shop = true;
+						break;
+					}
+				}
+				if(!_found_in_shop)
+					return false;
+				var _found_in_buyable_cards = false;
+				for(var i=0; i<buyable_cards.num_items; i++)
+				{
+					if(buyable_cards.items[i] == _input.card_entity_id)
+					{
+						_found_in_buyable_cards = true;
+						break;
+					}
+				}
+				if(!_found_in_buyable_cards)
+					return false;
+				return true;
+				
 		}
 	}
 }
