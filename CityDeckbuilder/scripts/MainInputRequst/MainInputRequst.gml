@@ -27,7 +27,7 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 	static get_buyable_cards = function(_game_state)
 	{
 		var _buyable_cards = new List();
-		for(var i=0; i<SHOP_NUM_SLOTS; i++)
+		for(var i=0; i<_game_state.shop.num_slots; i++)
 		{
 			var _card = _game_state.shop.cards[i];
 			if(_card == -1)
@@ -58,21 +58,12 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 				}
 				if(!_found_in_hand)
 					return false;
-				var _found_in_playable_cards = false;
-				for(var i=0; i<playable_cards.num_items; i++)
-				{
-					if(playable_cards.items[i] == _input.card_entity_id)
-					{
-						_found_in_playable_cards = true;
-						break;
-					}
-				}
-				if(!_found_in_playable_cards)
+				if(playable_cards.find_item_index(_input.card_entity_id) == -1)
 					return false;
 				return true;
 			case INPUT_TYPE.BUY_CARD:
 				var _found_in_shop = false;
-				for(var i=0; i<SHOP_NUM_SLOTS; i++)
+				for(var i=0; i<_game_state.shop.num_slots; i++)
 				{
 					if(_game_state.shop.cards[i] == -1)
 						continue;
@@ -84,16 +75,7 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 				}
 				if(!_found_in_shop)
 					return false;
-				var _found_in_buyable_cards = false;
-				for(var i=0; i<buyable_cards.num_items; i++)
-				{
-					if(buyable_cards.items[i] == _input.card_entity_id)
-					{
-						_found_in_buyable_cards = true;
-						break;
-					}
-				}
-				if(!_found_in_buyable_cards)
+				if(buyable_cards.find_item_index(_input.card_entity_id) == -1)
 					return false;
 				return true;
 				

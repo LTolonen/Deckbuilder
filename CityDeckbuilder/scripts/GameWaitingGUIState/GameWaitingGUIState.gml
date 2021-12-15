@@ -76,7 +76,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	static game_gui_on_card_bought = function(_game_event)
 	{
 		var _gui_card = gui.gui_entities[_game_event.card_entity_id];
-		for(var i=0; i<SHOP_NUM_SLOTS; i++)
+		for(var i=0; i<gui.gui_shop.num_slots; i++)
 		{
 			if(gui.gui_shop.gui_cards[i] == -1)
 				continue;

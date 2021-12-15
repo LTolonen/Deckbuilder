@@ -18,6 +18,18 @@ function List() constructor
 		num_items--;
 	}
 	
+	/// @function find_item_index
+	/// @param item
+	static find_item_index = function(_item)
+	{
+		for(var i=0; i<num_items; i++)
+		{
+			if(items[i] == _item)
+				return i;
+		}
+		return -1;
+	}
+	
 	/// @function pop_first_item
 	static pop_first_item = function()
 	{

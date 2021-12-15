@@ -7,6 +7,7 @@ enum ZONE
 	PLAY
 }
 
+
 function GameState(_card_set) : GameEventSubject() constructor
 {
 	card_set = _card_set;
@@ -15,7 +16,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 	discard_pile = new List();
 	hand = new List();
 	played_cards = new List();
-	shop = new Shop();
+	shop = new Shop(SHOP_NUM_SLOTS);
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;
 	energy_max = 1;
@@ -176,7 +177,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 		{
 			game_change_resource(RESOURCE.POWER,_card.card_data.strength);
 		}
-		for(var i=0; i<SHOP_NUM_SLOTS; i++)
+		for(var i=0; i<shop.num_slots; i++)
 		{
 			if(shop.cards[i] == -1)
 				continue;

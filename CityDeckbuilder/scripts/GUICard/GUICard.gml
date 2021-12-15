@@ -179,29 +179,13 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 			highlighted = false;
 			if(zone == ZONE.HAND)
 			{
-				var _found_in_playable_cards = false;
-				for(var i=0; i<_gui_state.input_request.playable_cards.num_items; i++)
-				{
-					if(_gui_state.input_request.playable_cards.items[i] == card_entity_id)
-					{
-						_found_in_playable_cards = true;
-						break;
-					}
-				}
-				highlighted = _found_in_playable_cards;
+				if(_gui_state.input_request.playable_cards.find_item_index(card_entity_id) != -1)
+					highlighted = true;
 			}
 			else if(zone == ZONE.SHOP)
 			{
-				var _found_in_buyable_cards = false;
-				for(var i=0; i<_gui_state.input_request.buyable_cards.num_items; i++)
-				{
-					if(_gui_state.input_request.buyable_cards.items[i] == card_entity_id)
-					{
-						_found_in_buyable_cards = true;
-						break;
-					}
-				}
-				highlighted = _found_in_buyable_cards;
+				if(_gui_state.input_request.buyable_cards.find_item_index(card_entity_id) != -1)
+					highlighted = true;
 			}
 		}
 	}
