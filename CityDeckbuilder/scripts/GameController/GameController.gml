@@ -11,6 +11,7 @@ function GameController(_card_set) constructor
 	on_input[INPUT_TYPE.TURN_END] = controller_turn_end;
 	on_input[INPUT_TYPE.PLAY_CARD] = controller_play_card;
 	on_input[INPUT_TYPE.BUY_CARD] = controller_buy_card;
+	on_input[INPUT_TYPE.REROLL_SHOP] = controller_reroll_shop;
 	
 	static controller_init = function()
 	{
@@ -71,6 +72,14 @@ function GameController(_card_set) constructor
 	static controller_buy_card = function(_input)
 	{
 		game_state.game_buy_card(_input.card_entity_id);
+		controller_request_input(new MainInputRequest(game_state));
+	}
+	
+	/// @function controller_reroll_shop
+	/// @param input
+	static controller_reroll_shop = function(_input)
+	{
+		game_state.game_reroll_shop();
 		controller_request_input(new MainInputRequest(game_state));
 	}
 }

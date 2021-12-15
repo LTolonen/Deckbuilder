@@ -8,6 +8,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event[GAME_EVENT_TYPE.CARD_DISCARDED_FROM_HAND] = game_gui_on_card_discarded_from_hand;
 	on_game_event[GAME_EVENT_TYPE.RESOURCE_CHANGE] = game_gui_on_resource_change;
 	on_game_event[GAME_EVENT_TYPE.CARD_ADDED_TO_SHOP] = game_gui_on_card_added_to_shop;
+	on_game_event[GAME_EVENT_TYPE.CARD_REMOVED_FROM_SHOP] = game_gui_on_card_removed_from_shop;
 	on_game_event[GAME_EVENT_TYPE.CARD_BOUGHT] = game_gui_on_card_bought;
 	
 	static update = function()
@@ -69,6 +70,15 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	{
 		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id, ZONE.SHOP);
 		gui.gui_shop.gui_cards[_game_event.slot_index] = _gui_card;
+	}
+	
+	/// @function game_gui_on_card_removed_from_shop
+	/// @param game_event
+	static game_gui_on_card_removed_from_shop = function(_game_event)
+	{
+		var _gui_card = gui.gui_shop.gui_cards[_game_event.slot_index];
+		gui.gui_shop.gui_cards[_game_event.slot_index] = -1;
+		_gui_card.destroy();
 	}
 	
 	/// @function game_gui_on_card_bought

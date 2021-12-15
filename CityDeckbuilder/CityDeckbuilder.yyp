@@ -25,6 +25,7 @@
     {"id":{"name":"GameEvent","path":"scripts/GameEvent/GameEvent.yy",},"order":0,},
     {"id":{"name":"GameEventSubject","path":"scripts/GameEventSubject/GameEventSubject.yy",},"order":2,},
     {"id":{"name":"GameController","path":"scripts/GameController/GameController.yy",},"order":0,},
+    {"id":{"name":"RerollShopInput","path":"scripts/RerollShopInput/RerollShopInput.yy",},"order":4,},
     {"id":{"name":"Card","path":"scripts/Card/Card.yy",},"order":4,},
     {"id":{"name":"CardDrawEffect","path":"scripts/CardDrawEffect/CardDrawEffect.yy",},"order":2,},
     {"id":{"name":"CardSet","path":"scripts/CardSet/CardSet.yy",},"order":1,},
@@ -41,6 +42,7 @@
     {"id":{"name":"Entity","path":"scripts/Entity/Entity.yy",},"order":2,},
     {"id":{"name":"SprResourceIcons","path":"sprites/SprResourceIcons/SprResourceIcons.yy",},"order":1,},
     {"id":{"name":"SprCornerRounded2Px","path":"sprites/SprCornerRounded2Px/SprCornerRounded2Px.yy",},"order":0,},
+    {"id":{"name":"CardRemovedFromShopGameEvent","path":"scripts/CardRemovedFromShopGameEvent/CardRemovedFromShopGameEvent.yy",},"order":11,},
     {"id":{"name":"GameWaitingGUIState","path":"scripts/GameWaitingGUIState/GameWaitingGUIState.yy",},"order":1,},
     {"id":{"name":"GUIButton","path":"scripts/GUIButton/GUIButton.yy",},"order":2,},
     {"id":{"name":"Resource","path":"scripts/Resource/Resource.yy",},"order":2,},
@@ -55,6 +57,7 @@
     {"id":{"name":"CardDiscardedFromHandGameEvent","path":"scripts/CardDiscardedFromHandGameEvent/CardDiscardedFromHandGameEvent.yy",},"order":7,},
     {"id":{"name":"Effect","path":"scripts/Effect/Effect.yy",},"order":0,},
     {"id":{"name":"CardAddedToShopGameEvent","path":"scripts/CardAddedToShopGameEvent/CardAddedToShopGameEvent.yy",},"order":9,},
+    {"id":{"name":"GUIRerollButton","path":"scripts/GUIRerollButton/GUIRerollButton.yy",},"order":12,},
     {"id":{"name":"RoomMain","path":"rooms/RoomMain/RoomMain.yy",},"order":0,},
   ],
   "Options": [

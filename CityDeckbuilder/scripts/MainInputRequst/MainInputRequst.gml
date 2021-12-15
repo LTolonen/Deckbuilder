@@ -4,6 +4,7 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 {
 	playable_cards = get_playable_cards(_game_state);
 	buyable_cards = get_buyable_cards(_game_state);
+	can_reroll_shop = _game_state.resources[RESOURCE.MONEY] >= _game_state.shop.reroll_cost;
 	
 	static toString = function()
 	{
@@ -46,6 +47,8 @@ function MainInputRequest(_game_state) : InputRequest(INPUT_REQUEST_TYPE.MAIN) c
 		{
 			case INPUT_TYPE.TURN_END:
 				return true;
+			case INPUT_TYPE.REROLL_SHOP:
+				return can_reroll_shop;
 			case INPUT_TYPE.PLAY_CARD:
 				var _found_in_hand = false;
 				for(var i=0; i<_game_state.hand.num_items; i++)

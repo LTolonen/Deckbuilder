@@ -18,8 +18,6 @@ function GameState(_card_set) : GameEventSubject() constructor
 		//Set Health
 		game_set_resource(RESOURCE.HEALTH,3);
 		
-		game_set_resource(RESOURCE.MONEY,300);
-		
 		//Populate Starter Deck
 		var _copper_data = card_set.card_set_find_card_by_name("Copper");
 		var _silver_data = card_set.card_set_find_card_by_name("Silver");
@@ -187,5 +185,15 @@ function GameState(_card_set) : GameEventSubject() constructor
 		game_event_subject_notify(new CardBoughtGameEvent(_card_entity_id,_card.card_data));
 		
 		shop.shop_populate(self);
+	}
+	
+	/// @function game_reroll_shop
+	static game_reroll_shop = function()
+	{
+		if(shop.reroll_cost != 0)
+		{
+			game_change_resource(RESOURCE.MONEY,-shop.reroll_cost);
+		}
+		shop.shop_reroll(self);
 	}
 }

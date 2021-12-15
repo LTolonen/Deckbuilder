@@ -11,6 +11,7 @@ function GameGUI() : GUI() constructor
 	}
 	gui_hand = new GUIHand(self,0,240,640,120);
 	gui_end_turn_button = new GUIEndTurnButton(self,10,200);
+	gui_reroll_button = new GUIRerollButton(self,10,gui_shop.height+20);
 	gui_log = new GUILog(self,240,0);
 
 	game_event_queue = new List();
