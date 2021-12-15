@@ -1,13 +1,3 @@
-enum ZONE
-{
-	SHOP,
-	HAND,
-	DRAW_PILE,
-	DISCARD_PILE,
-	PLAY
-}
-
-
 function GameState(_card_set) : GameEventSubject() constructor
 {
 	card_set = _card_set;
@@ -28,6 +18,8 @@ function GameState(_card_set) : GameEventSubject() constructor
 		//Set Health
 		game_set_resource(RESOURCE.HEALTH,3);
 		
+		game_set_resource(RESOURCE.MONEY,300);
+		
 		//Populate Starter Deck
 		var _copper_data = card_set.card_set_find_card_by_name("Copper");
 		var _silver_data = card_set.card_set_find_card_by_name("Silver");
@@ -38,13 +30,13 @@ function GameState(_card_set) : GameEventSubject() constructor
 		var _generator_data = card_set.card_set_find_card_by_name("Generator");
 		repeat(4)
 		{
-			discard_pile.add_item(new Card(entity_set, _copper_data));
-			discard_pile.add_item(new Card(entity_set, _silver_data));
-			discard_pile.add_item(new Card(entity_set, _gold_data));
-			discard_pile.add_item(new Card(entity_set, _tree_data));
-			discard_pile.add_item(new Card(entity_set, _infantry_data));
-			discard_pile.add_item(new Card(entity_set, _study_data));
-			discard_pile.add_item(new Card(entity_set, _generator_data));
+			discard_pile.add_item(new Card(entity_set, _copper_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _silver_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _gold_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _tree_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _infantry_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _study_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+			discard_pile.add_item(new Card(entity_set, _generator_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
 			game_change_resource(RESOURCE.POWER,1);
 		}
 		
@@ -61,7 +53,9 @@ function GameState(_card_set) : GameEventSubject() constructor
 		{
 			for(var i=0; i<discard_pile.num_items; i++)
 			{
-				draw_pile.add_item(discard_pile.items[i]);	
+				var _card = discard_pile.items[i];
+				draw_pile.add_item(_card);	
+				_card.card_location = new CardLocation(ZONE.DRAW_PILE,-1);
 			}
 			discard_pile.empty_list();
 			draw_pile.shuffle_list();
@@ -71,6 +65,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 		{
 			var _card = draw_pile.pop_last_item();
 			hand.add_item(_card);
+			_card.card_location = new CardLocation(ZONE.HAND,-1);
 			game_event_subject_notify(new CardDrawnGameEvent(_card.entity_id,_card.card_data));
 		}
 	}
@@ -82,6 +77,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 		{
 			var _card = hand.items[i];
 			discard_pile.add_item(_card);
+			_card.card_location = new CardLocation(ZONE.DISCARD_PILE,-1);
 			game_event_subject_notify(new CardDiscardedFromHandGameEvent(_card.entity_id,_card.card_data));
 		}
 		hand.empty_list();
@@ -97,6 +93,7 @@ function GameState(_card_set) : GameEventSubject() constructor
 			if(_card.entity_id == _card_entity_id)
 			{
 				discard_pile.add_item(_card);
+				_card.card_location = new CardLocation(ZONE.DISCARD_PILE,-1);
 				hand.remove_item_at_index(i);
 				game_event_subject_notify(new CardDiscardedFromHandGameEvent(_card.entity_id,_card.card_data));
 				break;
@@ -186,6 +183,9 @@ function GameState(_card_set) : GameEventSubject() constructor
 			shop.cards[i] = -1;
 		}
 		hand.add_item(_card);
+		_card.card_location = new CardLocation(ZONE.HAND,-1);
 		game_event_subject_notify(new CardBoughtGameEvent(_card_entity_id,_card.card_data));
+		
+		shop.shop_populate(self);
 	}
 }

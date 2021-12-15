@@ -16,7 +16,7 @@ function Shop(_num_slots) constructor
 			if(cards[i] == -1)
 			{
 				var _card_data = _game_state.card_set.card_set_choose_card()
-				cards[i] = new Card(_game_state.entity_set, _card_data);
+				cards[i] = new Card(_game_state.entity_set, _card_data, new CardLocation(ZONE.SHOP,i));
 				
 				_game_state.game_event_subject_notify(new CardAddedToShopGameEvent(cards[i].entity_id,_card_data,i));
 			}

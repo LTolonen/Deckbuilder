@@ -21,6 +21,7 @@
     {"id":{"name":"InputRequest","path":"scripts/InputRequest/InputRequest.yy",},"order":0,},
     {"id":{"name":"Strings","path":"scripts/Strings/Strings.yy",},"order":3,},
     {"id":{"name":"TokenText","path":"scripts/TokenText/TokenText.yy",},"order":2,},
+    {"id":{"name":"CardLocation","path":"scripts/CardLocation/CardLocation.yy",},"order":8,},
     {"id":{"name":"GameEvent","path":"scripts/GameEvent/GameEvent.yy",},"order":0,},
     {"id":{"name":"GameEventSubject","path":"scripts/GameEventSubject/GameEventSubject.yy",},"order":2,},
     {"id":{"name":"GameController","path":"scripts/GameController/GameController.yy",},"order":0,},
