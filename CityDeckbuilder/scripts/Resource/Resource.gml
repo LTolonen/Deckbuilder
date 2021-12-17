@@ -11,6 +11,7 @@ enum RESOURCE
 global.RESOURCE_COLOURS = [COLOUR.RED,COLOUR.BLUE,COLOUR.ORANGE, COLOUR.LAVENDAR, COLOUR.GREEN];
 global.RESOURCE_BACKGROUND_COLOURS = [COLOUR.DARKEST_RED,COLOUR.DARKEST_BLUE,COLOUR.DARKEST_ORANGE,COLOUR.DARKEST_BLUE,COLOUR.DARKEST_GREEN];
 global.RESOURCE_NAMES = ["Health", "Energy", "Money", "Power", "Food"];
+global.RESOURCE_TOKEN_STRINGS = ["{H}","{E}","{M}","{P}","{F}"];
 
 /// @function resource_get_colour
 /// @param resource
@@ -31,4 +32,11 @@ function resource_get_background_colour(_resource)
 function resource_get_name(_resource)
 {
 	return global.RESOURCE_NAMES[_resource];
+}
+
+/// @function resource_get_token_string
+/// @param resource
+function resource_get_token_string(_resource)
+{
+	return global.RESOURCE_TOKEN_STRINGS[_resource];	
 }

@@ -10,6 +10,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event[GAME_EVENT_TYPE.CARD_ADDED_TO_SHOP] = game_gui_on_card_added_to_shop;
 	on_game_event[GAME_EVENT_TYPE.CARD_REMOVED_FROM_SHOP] = game_gui_on_card_removed_from_shop;
 	on_game_event[GAME_EVENT_TYPE.CARD_BOUGHT] = game_gui_on_card_bought;
+	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_ADDED] = game_gui_on_predicament_added;
 	
 	static update = function()
 	{
@@ -96,5 +97,13 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 		}
 		gui.gui_hand.gui_cards.add_item(_gui_card);
 		_gui_card.zone = ZONE.HAND;
+	}
+	
+	/// @function game_gui_on_predicament_added
+	/// @param game_event
+	static game_gui_on_predicament_added = function(_game_event)
+	{
+		var _gui_predicament = new GUIPredicament(gui,640-GUI_PREDICAMENT_WIDTH-4,4,_game_event.predicament_data);
+		gui.gui_predicament = _gui_predicament;
 	}
 }

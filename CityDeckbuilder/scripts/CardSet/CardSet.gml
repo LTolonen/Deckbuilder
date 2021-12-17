@@ -51,7 +51,7 @@ function card_set_init()
 	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.MONEY,2));
 	card_set.card_set_add_card(_card_data);
 	
-	_card_data = new CardData("Gold",3,0,0,"Gain 3 {M} .",CARD_FRAME_TYPE.MONEY,1);
+	_card_data = new CardData("Gold",6,0,0,"Gain 3 {M} .",CARD_FRAME_TYPE.MONEY,1);
 	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.MONEY,3));
 	card_set.card_set_add_card(_card_data);
 	

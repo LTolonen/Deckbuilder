@@ -1,9 +1,11 @@
 /// @function GameController
 /// @param card_set
-function GameController(_card_set) constructor
+/// @param predicament_set
+function GameController(_card_set, _predicament_set) constructor
 {
 	card_set = _card_set;
-	game_state = new GameState(_card_set);
+	predicament_set = _predicament_set;
+	game_state = new GameState(_card_set, _predicament_set);
 	current_input_request = -1;
 	input_provider = -1;
 	

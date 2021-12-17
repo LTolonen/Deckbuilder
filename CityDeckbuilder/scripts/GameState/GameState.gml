@@ -1,12 +1,14 @@
-function GameState(_card_set) : GameEventSubject() constructor
+function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 {
 	card_set = _card_set;
+	predicament_set = _predicament_set;
 	entity_set = new EntitySet();
 	draw_pile = new List();
 	discard_pile = new List();
 	hand = new List();
 	played_cards = new List();
 	shop = new Shop(SHOP_NUM_SLOTS);
+	predicament = -1;
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;
 	energy_max = 1;
@@ -40,6 +42,9 @@ function GameState(_card_set) : GameEventSubject() constructor
 		
 		//Populate Shop
 		shop.shop_populate(self);
+		
+		//Choose Predicament
+		game_add_predicament();
 		
 		game_turn_begin();
 	}
@@ -195,5 +200,12 @@ function GameState(_card_set) : GameEventSubject() constructor
 			game_change_resource(RESOURCE.MONEY,-shop.reroll_cost);
 		}
 		shop.shop_reroll(self);
+	}
+	
+	/// @function game_add_predicament
+	static game_add_predicament = function()
+	{
+		predicament = new Predicament(predicament_set.predicament_set_choose_predicament());
+		game_event_subject_notify(new PredicamentAddedGameEvent(predicament.predicament_data));
 	}
 }
