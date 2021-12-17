@@ -4,7 +4,7 @@
 /// @param y
 function GUIRerollButton(_gui,_x, _y) : GUIButton(_gui,GUI_LAYER_BUTTONS,_x,_y,120,30,"Reroll") constructor
 {
-	reroll_cost = 0;
+	reroll_cost = 1;
 	text_fitting = -1;
 	gui_reroll_button_update_text_fitting();
 

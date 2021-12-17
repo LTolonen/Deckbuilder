@@ -134,6 +134,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	{
 		turn_number++;
 		game_event_subject_notify(new TurnBeginGameEvent(turn_number));
+		shop.shop_set_reroll_cost(self,1);
 		game_refill_energy();
 		repeat(5)
 		{
