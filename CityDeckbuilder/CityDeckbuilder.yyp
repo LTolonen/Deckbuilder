@@ -19,6 +19,7 @@
     {"id":{"name":"GUIPredicament","path":"scripts/GUIPredicament/GUIPredicament.yy",},"order":13,},
     {"id":{"name":"CardData","path":"scripts/CardData/CardData.yy",},"order":0,},
     {"id":{"name":"InputProvider","path":"scripts/InputProvider/InputProvider.yy",},"order":3,},
+    {"id":{"name":"ShopRerolledCostChangedGameEvent","path":"scripts/ShopRerolledCostChangedGameEvent/ShopRerolledCostChangedGameEvent.yy",},"order":15,},
     {"id":{"name":"GUICard","path":"scripts/GUICard/GUICard.yy",},"order":3,},
     {"id":{"name":"InputRequest","path":"scripts/InputRequest/InputRequest.yy",},"order":0,},
     {"id":{"name":"Strings","path":"scripts/Strings/Strings.yy",},"order":3,},

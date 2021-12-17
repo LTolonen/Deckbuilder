@@ -7,7 +7,7 @@ function Shop(_num_slots) constructor
 	num_slots = _num_slots;
 	cards = array_create(num_slots,-1);
 	
-	reroll_cost = 3;
+	reroll_cost = 0;
 	
 	/// @function shop_populate
 	/// @param game_state
@@ -29,6 +29,8 @@ function Shop(_num_slots) constructor
 	/// @param game_state
 	static shop_reroll = function(_game_state)
 	{
+		reroll_cost++;
+		_game_state.game_event_subject_notify(new ShopRerollCostChangedGameEvent(reroll_cost));
 		for(var i=0; i<num_slots; i++)
 		{
 			if(cards[i] == -1)

@@ -13,6 +13,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_ADDED] = game_gui_on_predicament_added;
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_REMOVED] = game_gui_on_predicament_removed;
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_TICKDOWN] = game_gui_on_predicament_tick_down;
+	on_game_event[GAME_EVENT_TYPE.SHOP_REROLL_COST_CHANGED] = game_gui_on_shop_reroll_cost_changed;
 	
 	static update = function()
 	{
@@ -121,5 +122,13 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	static game_gui_on_predicament_tick_down = function(_game_event)
 	{
 		gui.gui_predicament.turns_remaining = _game_event.turns_remaining;	
+	}
+	
+	/// @function game_gui_on_shop_reroll_cost_changed
+	/// @param game_event
+	static game_gui_on_shop_reroll_cost_changed = function(_game_event)
+	{
+		gui.gui_reroll_button.reroll_cost = _game_event.reroll_cost;
+		gui.gui_reroll_button.gui_reroll_button_update_text_fitting();
 	}
 }
