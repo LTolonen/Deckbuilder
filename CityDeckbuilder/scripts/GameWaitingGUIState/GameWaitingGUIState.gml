@@ -11,6 +11,8 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event[GAME_EVENT_TYPE.CARD_REMOVED_FROM_SHOP] = game_gui_on_card_removed_from_shop;
 	on_game_event[GAME_EVENT_TYPE.CARD_BOUGHT] = game_gui_on_card_bought;
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_ADDED] = game_gui_on_predicament_added;
+	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_REMOVED] = game_gui_on_predicament_removed;
+	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_TICKDOWN] = game_gui_on_predicament_tick_down;
 	
 	static update = function()
 	{
@@ -103,7 +105,21 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_predicament_added = function(_game_event)
 	{
-		var _gui_predicament = new GUIPredicament(gui,640-GUI_PREDICAMENT_WIDTH-4,4,_game_event.predicament_data);
-		gui.gui_predicament = _gui_predicament;
+		gui.gui_predicament = new GUIPredicament(gui,640-GUI_PREDICAMENT_WIDTH-4,4,_game_event.predicament_data);
+	}
+	
+	/// @function game_gui_on_predicament_removed
+	/// @param game_event
+	static game_gui_on_predicament_removed = function(_game_event)
+	{
+		gui.gui_predicament.destroy();
+		gui.gui_predicament = -1;
+	}
+	
+	/// @function game_gui_on_predicament_tick_down
+	/// @param game_event
+	static game_gui_on_predicament_tick_down = function(_game_event)
+	{
+		gui.gui_predicament.turns_remaining = _game_event.turns_remaining;	
 	}
 }

@@ -145,6 +145,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	static game_turn_end = function()
 	{
 		game_discard_hand();
+		game_tick_down_predicament();
 	}
 	
 	/// @function game_play_card
@@ -207,5 +208,41 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	{
 		predicament = new Predicament(predicament_set.predicament_set_choose_predicament());
 		game_event_subject_notify(new PredicamentAddedGameEvent(predicament.predicament_data));
+	}
+	
+	/// @function game_tick_down_predicament
+	static game_tick_down_predicament = function()
+	{
+		if(predicament == -1)
+			return;
+		predicament.turns_remaining--;
+		game_event_subject_notify(new PredicamentTickDownGameEvent(predicament.predicament_data,predicament.turns_remaining));
+		
+		if(predicament.turns_remaining > 0)
+			return;
+		
+		var _cleared = true;
+		for(var i=0; i<RESOURCE.COUNT; i++)
+		{
+			var _requirement = predicament.predicament_data.resource_requirements[i];
+			if(_requirement <= 0)
+				continue;
+			if(resources[i] <= _requirement)
+			{
+				_cleared = false;
+				if(i != RESOURCE.POWER)
+					game_set_resource(i,0);
+			}
+			else
+			{
+				if(i != RESOURCE.POWER)
+					game_change_resource(i,-_requirement);
+			}
+		}
+		if(!_cleared)
+			game_change_resource(RESOURCE.HEALTH,-1);
+			
+		game_event_subject_notify(new PredicamentRemovedGameEvent(predicament.predicament_data));
+		game_add_predicament();
 	}
 }

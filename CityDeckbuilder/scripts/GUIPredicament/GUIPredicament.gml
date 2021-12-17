@@ -13,7 +13,7 @@
 function GUIPredicament(_gui, _x, _y, _predicament_data) : GUIElement(_gui,GUI_LAYER_PREDICAMENT,_x,_y,GUI_PREDICAMENT_WIDTH,GUI_PREDICAMENT_HEIGHT,"Predicament") constructor
 {
 	predicament_data = _predicament_data;
-	remaining_turns = _predicament_data.turns;
+	turns_remaining = _predicament_data.turns;
 	
 	text_width = width-4*GUI_PREDICAMENT_TEXT_BORDER;
 	text_height = height-GUI_PREDICAMENT_HEADER_HEIGHT-GUI_PREDICAMENT_ART_BOX_HEIGHT-2*GUI_PREDICAMENT_TEXT_BORDER;
@@ -60,6 +60,6 @@ function GUIPredicament(_gui, _x, _y, _predicament_data) : GUIElement(_gui,GUI_L
 		draw_set_halign(fa_center);
 		draw_set_valign(fa_top);
 		draw_set_font(FontVector7);
-		draw_text(x+width div 2, y+height+4,string(remaining_turns) + " turns remaining");
+		draw_text(x+width div 2, y+height+4,string(turns_remaining) + " turns remaining");
 	}
 }
