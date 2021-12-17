@@ -9,6 +9,7 @@ function GUIShop(_gui, _x, _y, _width, _height, _num_slots) : GUIElement(_gui, G
 {
 	num_slots = _num_slots;
 	gui_cards = array_create(num_slots,-1);
+	hoverable = false;
 	
 	static update = function()
 	{
@@ -17,7 +18,7 @@ function GUIShop(_gui, _x, _y, _width, _height, _num_slots) : GUIElement(_gui, G
 			if(gui_cards[i] == -1)
 				continue;
 			var _gui_card = gui_cards[i];
-			_gui_card.target_center_x = spread_item(width,num_slots,GUI_CARD_WIDTH,i)+GUI_CARD_WIDTH div 2;
+			_gui_card.target_center_x = spread_item(width,num_slots,GUI_CARD_COLLAPSED_WIDTH,i)+GUI_CARD_COLLAPSED_WIDTH div 2;
 			_gui_card.target_center_y = y+height div 2;
 		}
 	}

@@ -104,6 +104,19 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		}
 	}
 	
+	/// @function game_discard_cards_from_play
+	static game_discard_cards_from_play = function()
+	{
+		for(var i=0; i<played_cards.num_items; i++)
+		{
+			var _card = played_cards.items[i];
+			discard_pile.add_item(_card);
+			_card.card_location = new CardLocation(ZONE.DISCARD_PILE,-1);
+		}
+		played_cards.empty_list();
+		game_event_subject_notify(new CardsDiscardedFromPlayGameEvent());
+	}
+	
 	/// @function game_refill_energy
 	static game_refill_energy = function()
 	{
@@ -145,6 +158,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	/// @function game_turn_end
 	static game_turn_end = function()
 	{
+		game_discard_cards_from_play();
 		game_discard_hand();
 		game_tick_down_predicament();
 	}
@@ -162,7 +176,9 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		{
 			_card.card_data.on_play_effects[i].effect_perform(self);	
 		}
-		game_discard_card(_card_entity_id);
+		hand.remove_item(_card);
+		played_cards.add_item(_card);
+		_card.card_location = new CardLocation(ZONE.PLAY,-1);
 		game_event_subject_notify(new CardPlayedGameEvent(_card_entity_id,_card.card_data));
 	}
 	

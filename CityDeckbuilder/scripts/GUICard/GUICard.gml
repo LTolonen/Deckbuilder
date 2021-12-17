@@ -4,6 +4,8 @@
 #macro GUI_CARD_HEIGHT 100
 #macro GUI_CARD_EXPANDED_WIDTH 110
 #macro GUI_CARD_EXPANDED_HEIGHT 130
+#macro GUI_CARD_COLLAPSED_WIDTH 80
+#macro GUI_CARD_COLLAPSED_HEIGHT 80
 #macro GUI_CARD_HEADER_HEIGHT 13
 #macro GUI_CARD_ART_BOX_HEIGHT 40
 #macro GUI_CARD_TEXT_BORDER 3
@@ -14,21 +16,22 @@
 /// @param y
 /// @param card_data
 /// @param card_entity_id
-/// @param zone
-function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
+/// @param card_location
+function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _card_location) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
 {
 	card_data = _card_data;
 	card_entity_id = _card_entity_id;
-	zone = _zone;
+	card_location = _card_location;
 	
 	gui.gui_entities[card_entity_id] = self;
 	
 	colour = card_frame_type_get_colour(card_data.frame_type);
 	bg_colour = card_frame_type_get_background_colour(card_data.frame_type);
 	
+	text_box_height = height-GUI_CARD_HEADER_HEIGHT-GUI_CARD_ART_BOX_HEIGHT-2*GUI_CARD_TEXT_BORDER;
 	text_width = width-4*GUI_CARD_TEXT_BORDER;
-	text_height = height-GUI_CARD_HEADER_HEIGHT-GUI_CARD_ART_BOX_HEIGHT-2*GUI_CARD_TEXT_BORDER;
-	text_fitting = new TokenisedTextFitting(_card_data.text_tokenised,GUI_CARD_WIDTH-4*GUI_CARD_TEXT_BORDER,40,4,17);
+	text_height = text_box_height-2*GUI_CARD_TEXT_BORDER;
+	text_fitting = new TokenisedTextFitting(card_data.text_tokenised,text_width,text_height,4,17);
 	
 	target_center_x = x+width div 2;
 	target_center_y = y+height div 2;
@@ -54,7 +57,17 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 		}
 		else
 		{
-			set_depth(GUI_LAYER_CARDS);	
+			if(card_location.zone == ZONE.PLAY || card_location.zone == ZONE.SHOP)
+			{
+				_target_width = GUI_CARD_COLLAPSED_WIDTH;
+				_target_height = GUI_CARD_COLLAPSED_HEIGHT;
+				if(card_location.zone == ZONE.PLAY)
+					set_depth(GUI_LAYER_PLAY_AREA);
+				else
+					set_depth(GUI_LAYER_CARDS);	
+			}
+			else
+				set_depth(GUI_LAYER_CARDS);	
 		}
 		var _new_width = width + (_target_width-width) div 2;
 		var _new_height = height + (_target_height-height) div 2;
@@ -99,8 +112,9 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 		y += (height-_height) div 2;
 		width = _width;
 		height = _height;
+		text_box_height = height-GUI_CARD_HEADER_HEIGHT-GUI_CARD_ART_BOX_HEIGHT-2*GUI_CARD_TEXT_BORDER;
 		text_width = width-4*GUI_CARD_TEXT_BORDER;
-		text_height = height-GUI_CARD_HEADER_HEIGHT-GUI_CARD_ART_BOX_HEIGHT-2*GUI_CARD_TEXT_BORDER;
+		text_height = text_box_height-2*GUI_CARD_TEXT_BORDER;
 		text_fitting = new TokenisedTextFitting(card_data.text_tokenised,text_width,text_height,4,17);
 	}
 	
@@ -116,7 +130,8 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 		draw_cornered_rectangle(x,y,x+width-1,y+height-1,colour,SprCornerRounded2Px);
 		draw_set_color(COLOUR.BLUE_BLACK);
 		draw_rectangle(x,y+GUI_CARD_HEADER_HEIGHT,x+width-1,y+GUI_CARD_HEADER_HEIGHT+GUI_CARD_ART_BOX_HEIGHT-1,false);
-		draw_cornered_rectangle(x+GUI_CARD_TEXT_BORDER,y+GUI_CARD_HEADER_HEIGHT+GUI_CARD_ART_BOX_HEIGHT+GUI_CARD_TEXT_BORDER,x+width-1-GUI_CARD_TEXT_BORDER,y+height-1-GUI_CARD_TEXT_BORDER,bg_colour,SprCornerRounded2Px);
+		if(text_box_height > 8)
+			draw_cornered_rectangle(x+GUI_CARD_TEXT_BORDER,y+GUI_CARD_HEADER_HEIGHT+GUI_CARD_ART_BOX_HEIGHT+GUI_CARD_TEXT_BORDER,x+width-1-GUI_CARD_TEXT_BORDER,y+height-1-GUI_CARD_TEXT_BORDER,bg_colour,SprCornerRounded2Px);
 		
 		//Name
 		draw_set_color(bg_colour);
@@ -147,7 +162,7 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 		}
 		
 		//Buy Cost
-		if(zone == ZONE.SHOP)
+		if(card_location.zone == ZONE.SHOP)
 		{
 			draw_set_color(COLOUR.WHITE);
 			draw_set_halign(fa_center);
@@ -161,11 +176,11 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 	{
 		if(gui.gui_state.gui_state_type == GUI_STATE_TYPE.GAME_MAIN)
 		{
-			if(zone == ZONE.HAND)
+			if(card_location.zone == ZONE.HAND)
 			{
 				gui.game_gui_provide_input(new PlayCardInput(card_entity_id));
 			}
-			else if(zone == ZONE.SHOP)
+			else if(card_location.zone == ZONE.SHOP)
 			{
 				gui.game_gui_provide_input(new BuyCardInput(card_entity_id));	
 			}
@@ -177,12 +192,12 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _zone) : GUIElement(
 		if(gui.gui_state.gui_state_type == GUI_STATE_TYPE.GAME_MAIN)
 		{
 			highlighted = false;
-			if(zone == ZONE.HAND)
+			if(card_location.zone == ZONE.HAND)
 			{
 				if(_gui_state.input_request.playable_cards.find_item_index(card_entity_id) != -1)
 					highlighted = true;
 			}
-			else if(zone == ZONE.SHOP)
+			else if(card_location.zone == ZONE.SHOP)
 			{
 				if(_gui_state.input_request.buyable_cards.find_item_index(card_entity_id) != -1)
 					highlighted = true;

@@ -151,8 +151,13 @@ function TokenisedTextFitting(_tokens, _max_width, _max_height, _space_width, _r
 	max_height = _max_height;
 	space_width = _space_width;
 	row_height = _row_height;
-	num_rows = 1;
-	rows[0] = new TextRow(max_width,space_width);
+	num_rows = 0;
+	rows = array_create(0);
+	
+	if(max_height < row_height)
+		return;
+		
+	rows[num_rows++] = new TextRow(max_width,space_width);
 	for(var i=0; i<array_length(_tokens); i++)
 	{
 		var _token = _tokens[i];
@@ -184,7 +189,8 @@ function TokenisedTextFitting(_tokens, _max_width, _max_height, _space_width, _r
 			}
 			else
 			{
-				_row.tokens[_row.num_tokens-1] = new TextToken("...",FontVector7);
+				if(_row.num_tokens >= 1)
+					_row.tokens[_row.num_tokens-1] = new TextToken("...",FontVector7);
 				break;	
 			}
 		}

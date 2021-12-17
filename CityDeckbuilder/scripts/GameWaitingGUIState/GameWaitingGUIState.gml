@@ -5,7 +5,9 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event = array_create(GAME_EVENT_TYPE.COUNT,-1);
 	on_game_event[GAME_EVENT_TYPE.INPUT_REQUESTED] = game_gui_on_input_requested;
 	on_game_event[GAME_EVENT_TYPE.CARD_DRAWN] = game_gui_on_card_drawn;
+	on_game_event[GAME_EVENT_TYPE.CARD_PLAYED] = game_gui_on_card_played;
 	on_game_event[GAME_EVENT_TYPE.CARD_DISCARDED_FROM_HAND] = game_gui_on_card_discarded_from_hand;
+	on_game_event[GAME_EVENT_TYPE.CARDS_DISCARDED_FROM_PLAY] = game_gui_on_cards_discarded_from_play;
 	on_game_event[GAME_EVENT_TYPE.RESOURCE_CHANGE] = game_gui_on_resource_change;
 	on_game_event[GAME_EVENT_TYPE.CARD_ADDED_TO_SHOP] = game_gui_on_card_added_to_shop;
 	on_game_event[GAME_EVENT_TYPE.CARD_REMOVED_FROM_SHOP] = game_gui_on_card_removed_from_shop;
@@ -40,8 +42,27 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_drawn = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id, ZONE.HAND);
+		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id, new CardLocation(ZONE.HAND,-1));
 		gui.gui_hand.gui_cards.add_item(_gui_card);
+	}
+	
+	/// @function game_gui_on_card_played
+	static game_gui_on_card_played = function(_game_event)
+	{
+		var _gui_card = -1;
+		for(var i=0; i<gui.gui_hand.gui_cards.num_items; i++)
+		{
+			if(gui.gui_hand.gui_cards.items[i].card_entity_id == _game_event.card_entity_id)
+			{
+				_gui_card = gui.gui_hand.gui_cards.items[i];
+				gui.gui_hand.gui_cards.remove_item_at_index(i);
+				break;
+			}
+		}
+		if(_gui_card == -1)
+			return;
+		gui.gui_play_area.gui_cards.add_item(_gui_card);
+		_gui_card.card_location = new CardLocation(ZONE.PLAY,-1);
 	}
 	
 	/// @function game_gui_on_card_discarded_from_hand
@@ -60,6 +81,18 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 		}
 	}
 	
+	/// @function game_gui_on_cards_discarded_from_play
+	/// @param game_event
+	static game_gui_on_cards_discarded_from_play = function(_game_event)
+	{
+		for(var i=0; i<gui.gui_play_area.gui_cards.num_items; i++)
+		{
+			var _gui_card = gui.gui_play_area.gui_cards.items[i];
+			_gui_card.destroy();
+		}
+		gui.gui_play_area.gui_cards.empty_list();
+	}
+	
 	/// @function game_gui_on_resource_change
 	/// @param game_event
 	static game_gui_on_resource_change = function(_game_event)
@@ -72,7 +105,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_added_to_shop = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id, ZONE.SHOP);
+		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id, new CardLocation(ZONE.SHOP,_game_event.slot_index));
 		gui.gui_shop.gui_cards[_game_event.slot_index] = _gui_card;
 	}
 	
@@ -99,7 +132,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 			gui.gui_shop.gui_cards[i] = -1;
 		}
 		gui.gui_hand.gui_cards.add_item(_gui_card);
-		_gui_card.zone = ZONE.HAND;
+		_gui_card.card_location = new CardLocation(ZONE.HAND,-1);
 	}
 	
 	/// @function game_gui_on_predicament_added

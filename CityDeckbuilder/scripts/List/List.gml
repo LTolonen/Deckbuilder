@@ -18,6 +18,17 @@ function List() constructor
 		num_items--;
 	}
 	
+	/// @function remove_item
+	/// @param item
+	static remove_item = function(_item)
+	{
+		var _index = find_item_index(_item);
+		if(_index != -1)
+		{
+			remove_item_at_index(_index);	
+		}
+	}
+	
 	/// @function find_item_index
 	/// @param item
 	static find_item_index = function(_item)
