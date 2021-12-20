@@ -42,55 +42,32 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_drawn = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id, new CardLocation(ZONE.HAND,-1));
-		gui.gui_hand.gui_cards.add_item(_gui_card);
+		var _gui_card = new GUICard(gui,-100,300,_game_event.card_data, _game_event.card_entity_id);
+		gui.gui_hand.gui_hand_add_card(_gui_card);
 	}
 	
 	/// @function game_gui_on_card_played
 	static game_gui_on_card_played = function(_game_event)
 	{
-		var _gui_card = -1;
-		for(var i=0; i<gui.gui_hand.gui_cards.num_items; i++)
-		{
-			if(gui.gui_hand.gui_cards.items[i].card_entity_id == _game_event.card_entity_id)
-			{
-				_gui_card = gui.gui_hand.gui_cards.items[i];
-				gui.gui_hand.gui_cards.remove_item_at_index(i);
-				break;
-			}
-		}
-		if(_gui_card == -1)
-			return;
-		gui.gui_play_area.gui_cards.add_item(_gui_card);
-		_gui_card.card_location = new CardLocation(ZONE.PLAY,-1);
+		var _gui_card = gui.gui_entities[_game_event.card_entity_id];
+		gui.gui_hand.gui_hand_remove_card(_gui_card);
+		gui.gui_play_area.gui_play_area_add_card(_gui_card);
 	}
 	
 	/// @function game_gui_on_card_discarded_from_hand
 	/// @param game_event
 	static game_gui_on_card_discarded_from_hand = function(_game_event)
 	{
-		for(var i=0; i<gui.gui_hand.gui_cards.num_items; i++)
-		{
-			if(gui.gui_hand.gui_cards.items[i].card_entity_id == _game_event.card_entity_id)
-			{
-				var _gui_card = gui.gui_hand.gui_cards.items[i];
-				gui.gui_hand.gui_cards.remove_item_at_index(i);
-				_gui_card.destroy();
-				break;
-			}
-		}
+		var _gui_card = gui.gui_entities[_game_event.card_entity_id];
+		gui.gui_hand.gui_hand_remove_card(_gui_card);
+		_gui_card.destroy();
 	}
 	
 	/// @function game_gui_on_cards_discarded_from_play
 	/// @param game_event
 	static game_gui_on_cards_discarded_from_play = function(_game_event)
 	{
-		for(var i=0; i<gui.gui_play_area.gui_cards.num_items; i++)
-		{
-			var _gui_card = gui.gui_play_area.gui_cards.items[i];
-			_gui_card.destroy();
-		}
-		gui.gui_play_area.gui_cards.empty_list();
+		gui.gui_play_area.gui_play_area_remove_all_cards();
 	}
 	
 	/// @function game_gui_on_resource_change
@@ -105,16 +82,16 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_card_added_to_shop = function(_game_event)
 	{
-		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id, new CardLocation(ZONE.SHOP,_game_event.slot_index));
-		gui.gui_shop.gui_cards[_game_event.slot_index] = _gui_card;
+		var _gui_card = new GUICard(gui,-100,-300,_game_event.card_data,_game_event.card_entity_id);
+		gui.gui_shop.gui_shop_add_card(_gui_card,_game_event.slot_index);
 	}
 	
 	/// @function game_gui_on_card_removed_from_shop
 	/// @param game_event
 	static game_gui_on_card_removed_from_shop = function(_game_event)
 	{
-		var _gui_card = gui.gui_shop.gui_cards[_game_event.slot_index];
-		gui.gui_shop.gui_cards[_game_event.slot_index] = -1;
+		var _gui_card = gui.gui_entities[_game_event.card_entity_id];
+		gui.gui_shop.gui_shop_remove_card(_gui_card);
 		_gui_card.destroy();
 	}
 	
@@ -123,16 +100,8 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	static game_gui_on_card_bought = function(_game_event)
 	{
 		var _gui_card = gui.gui_entities[_game_event.card_entity_id];
-		for(var i=0; i<gui.gui_shop.num_slots; i++)
-		{
-			if(gui.gui_shop.gui_cards[i] == -1)
-				continue;
-			if(gui.gui_shop.gui_cards[i].card_entity_id != _game_event.card_entity_id)
-				continue;
-			gui.gui_shop.gui_cards[i] = -1;
-		}
-		gui.gui_hand.gui_cards.add_item(_gui_card);
-		_gui_card.card_location = new CardLocation(ZONE.HAND,-1);
+		gui.gui_shop.gui_shop_remove_card(_gui_card);
+		gui.gui_hand.gui_hand_add_card(_gui_card);
 	}
 	
 	/// @function game_gui_on_predicament_added

@@ -17,4 +17,23 @@ function GUIHand(_gui, _x, _y, _width, _height) : GUIElement(_gui, GUI_LAYER_CAR
 			_gui_card.target_center_y = y+height div 2;
 		}
 	}
+	
+	/// @function gui_hand_add_card
+	/// @param gui_card
+	static gui_hand_add_card = function(_gui_card)
+	{
+		gui_cards.add_item(_gui_card);
+		_gui_card.card_location = new CardLocation(ZONE.HAND,-1);
+		_gui_card.non_hover_depth = GUI_LAYER_CARDS - gui_cards.num_items;
+	}
+	
+	/// @function gui_hand_remove_card
+	/// @param gui_card
+	static gui_hand_remove_card = function(_gui_card)
+	{
+		if(_gui_card.card_location.zone != ZONE.HAND)
+			return;
+		gui_cards.remove_item(_gui_card);
+		_gui_card.card_location = new CardLocation(ZONE.NONE,-1);
+	}
 }

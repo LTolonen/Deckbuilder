@@ -16,12 +16,11 @@
 /// @param y
 /// @param card_data
 /// @param card_entity_id
-/// @param card_location
-function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _card_location) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
+function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GUI_LAYER_CARDS,_x,_y,GUI_CARD_WIDTH,GUI_CARD_HEIGHT,"Card") constructor
 {
 	card_data = _card_data;
 	card_entity_id = _card_entity_id;
-	card_location = _card_location;
+	card_location = new CardLocation(ZONE.NONE,-1);
 	
 	gui.gui_entities[card_entity_id] = self;
 	
@@ -35,6 +34,7 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _card_location) : GU
 	
 	target_center_x = x+width div 2;
 	target_center_y = y+height div 2;
+	non_hover_depth = GUI_LAYER_CARDS;
 	
 	highlighted = false;
 	
@@ -61,13 +61,8 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id, _card_location) : GU
 			{
 				_target_width = GUI_CARD_COLLAPSED_WIDTH;
 				_target_height = GUI_CARD_COLLAPSED_HEIGHT;
-				if(card_location.zone == ZONE.PLAY)
-					set_depth(GUI_LAYER_PLAY_AREA);
-				else
-					set_depth(GUI_LAYER_CARDS);	
 			}
-			else
-				set_depth(GUI_LAYER_CARDS);	
+			set_depth(non_hover_depth);	
 		}
 		var _new_width = width + (_target_width-width) div 2;
 		var _new_height = height + (_target_height-height) div 2;
