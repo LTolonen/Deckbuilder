@@ -7,7 +7,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	discard_pile = new List();
 	hand = new List();
 	played_cards = new List();
-	shop = new Shop(SHOP_NUM_SLOTS);
+	shop = new Shop(SHOP_NUM_SLOTS, card_set);
 	predicament = -1;
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;

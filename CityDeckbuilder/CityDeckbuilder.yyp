@@ -26,6 +26,7 @@
     {"id":{"name":"TokenText","path":"scripts/TokenText/TokenText.yy",},"order":2,},
     {"id":{"name":"CardLocation","path":"scripts/CardLocation/CardLocation.yy",},"order":8,},
     {"id":{"name":"GameEvent","path":"scripts/GameEvent/GameEvent.yy",},"order":0,},
+    {"id":{"name":"Pool","path":"scripts/Pool/Pool.yy",},"order":4,},
     {"id":{"name":"GameEventSubject","path":"scripts/GameEventSubject/GameEventSubject.yy",},"order":2,},
     {"id":{"name":"GameController","path":"scripts/GameController/GameController.yy",},"order":0,},
     {"id":{"name":"RerollShopInput","path":"scripts/RerollShopInput/RerollShopInput.yy",},"order":4,},
