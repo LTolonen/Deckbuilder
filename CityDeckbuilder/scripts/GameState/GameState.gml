@@ -37,7 +37,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		{
 			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
 		}
-		game_set_resource(RESOURCE.HEALTH,2);
+		game_set_resource(RESOURCE.POWER,2);
 		
 		//Populate Shop
 		shop.shop_populate(self);
