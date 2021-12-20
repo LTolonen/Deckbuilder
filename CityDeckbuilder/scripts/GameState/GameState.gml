@@ -21,23 +21,16 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		game_set_resource(RESOURCE.HEALTH,3);
 		
 		//Populate Starter Deck
-		var _copper_data = card_set.card_set_find_card_by_name("Copper");
-		var _silver_data = card_set.card_set_find_card_by_name("Silver");
-		var _gold_data = card_set.card_set_find_card_by_name("Gold");
-		var _tree_data = card_set.card_set_find_card_by_name("Tree");
-		var _infantry_data = card_set.card_set_find_card_by_name("Infantry");
-		var _study_data = card_set.card_set_find_card_by_name("Study");
-		var _generator_data = card_set.card_set_find_card_by_name("Generator");
-		repeat(4)
+		var _card_data;
+		_card_data = card_set.card_set_find_card_by_name("Coin");
+		repeat(7)
 		{
-			discard_pile.add_item(new Card(entity_set, _copper_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _silver_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _gold_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _tree_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _infantry_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _study_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			discard_pile.add_item(new Card(entity_set, _generator_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
-			game_change_resource(RESOURCE.POWER,1);
+			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+		}
+		_card_data = card_set.card_set_find_card_by_name("Crop");
+		repeat(3)
+		{
+			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
 		}
 		
 		//Populate Shop
