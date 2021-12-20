@@ -159,6 +159,7 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		//Buy Cost
 		if(card_location.zone == ZONE.SHOP)
 		{
+			draw_cornered_rectangle(x+4,y+height+3,x+width-1-4,y+height+17,COLOUR.BLUE_BLACK,SprCornerRounded2Px);
 			draw_set_color(COLOUR.WHITE);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_top);
