@@ -22,4 +22,24 @@ function GUIShop(_gui, _x, _y, _width, _height, _num_slots) : GUIElement(_gui, G
 			_gui_card.target_center_y = y+height div 2;
 		}
 	}
+		
+	/// @function gui_shop_add_card
+	/// @param gui_card
+	/// @param position
+	static gui_shop_add_card = function(_gui_card, _position)
+	{
+		gui_cards[_position] = _gui_card;
+		_gui_card.card_location = new CardLocation(ZONE.SHOP,_position);
+		_gui_card.non_hover_depth = GUI_LAYER_CARDS - _position;
+	}
+	
+	/// @function gui_shop_remove_card
+	/// @param gui_card
+	static gui_shop_remove_card = function(_gui_card)
+	{
+		if(_gui_card.card_location.zone != ZONE.SHOP)
+			return;
+		gui_cards[_gui_card.card_location.position] = -1;
+		_gui_card.card_location = new CardLocation(ZONE.NONE,-1);
+	}
 }

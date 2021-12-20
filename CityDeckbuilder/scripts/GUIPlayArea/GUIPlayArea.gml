@@ -24,4 +24,24 @@ function GUIPlayArea(_gui, _x, _y, _width, _height) : GUIElement(_gui, GUI_LAYER
 			_gui_card.target_center_y = y + card_separation * (i mod card_grouping) + GUI_CARD_COLLAPSED_HEIGHT / 2;
 		}
 	}
+	
+	/// @function gui_play_area_add_card
+	/// @param gui_card
+	static gui_play_area_add_card = function(_gui_card)
+	{
+		gui_cards.add_item(_gui_card);
+		_gui_card.card_location = new CardLocation(ZONE.PLAY,-1);
+		_gui_card.non_hover_depth = GUI_LAYER_PLAY_AREA - gui_cards.num_items;
+	}
+	
+	/// @function gui_play_area_remove_all_cards
+	static gui_play_area_remove_all_cards = function()
+	{
+		for(var i=0; i<gui_cards.num_items; i++)
+		{
+			var _gui_card = gui_cards.items[i];
+			_gui_card.destroy();
+		}
+		gui_cards.empty_list();
+	}
 }

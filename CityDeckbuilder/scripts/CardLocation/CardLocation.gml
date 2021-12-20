@@ -1,5 +1,6 @@
 enum ZONE
 {
+	NONE,
 	SHOP,
 	HAND,
 	DRAW_PILE,
