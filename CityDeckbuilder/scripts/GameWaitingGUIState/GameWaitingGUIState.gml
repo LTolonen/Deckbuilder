@@ -16,6 +16,8 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_REMOVED] = game_gui_on_predicament_removed;
 	on_game_event[GAME_EVENT_TYPE.PREDICAMENT_TICKDOWN] = game_gui_on_predicament_tick_down;
 	on_game_event[GAME_EVENT_TYPE.SHOP_REROLL_COST_CHANGED] = game_gui_on_shop_reroll_cost_changed;
+	on_game_event[GAME_EVENT_TYPE.DRAW_PILE_UPDATED] = game_gui_on_draw_pile_updated;
+	on_game_event[GAME_EVENT_TYPE.DISCARD_PILE_UPDATED] = game_gui_on_discard_pile_updated;
 	
 	static update = function()
 	{
@@ -132,5 +134,19 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	{
 		gui.gui_reroll_button.reroll_cost = _game_event.reroll_cost;
 		gui.gui_reroll_button.gui_reroll_button_update_text_fitting();
+	}
+	
+	/// @function game_gui_on_draw_pile_updated
+	/// @param game_event
+	static game_gui_on_draw_pile_updated = function(_game_event)
+	{
+		gui.gui_draw_pile_button.update_draw_pile_list(_game_event.draw_pile_list);
+	}
+	
+	/// @function game_gui_on_discard_pile_updated
+	/// @param game_event
+	static game_gui_on_discard_pile_updated = function(_game_event)
+	{
+		gui.gui_discard_pile_button.update_discard_pile_list(_game_event.discard_pile_list);
 	}
 }

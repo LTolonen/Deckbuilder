@@ -16,6 +16,9 @@ function GameGUI() : GUI() constructor
 	gui_predicament = -1;
 	gui_log = new GUILog(self,240,0);
 	gui_card_selector = -1;
+	
+	gui_draw_pile_button = new GUIDrawPileButton(self,10,210);
+	gui_discard_pile_button = new GUIDiscardPileButton(self,120,210);
 
 	game_event_queue = new List();
 	

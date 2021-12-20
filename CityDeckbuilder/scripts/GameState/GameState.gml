@@ -63,12 +63,15 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 			discard_pile.empty_list();
 			draw_pile.shuffle_list();
 			game_event_subject_notify(new ShuffleGameEvent());
+			game_event_subject_notify(new DiscardPileUpdatedGameEvent(game_get_sorted_card_pile_list(discard_pile)));
+			game_event_subject_notify(new DrawPileUpdatedGameEvent(game_get_sorted_card_pile_list(draw_pile)));
 		}
 		if(draw_pile.num_items > 0)
 		{
 			var _card = draw_pile.pop_last_item();
 			hand.add_item(_card);
 			_card.card_location = new CardLocation(ZONE.HAND,-1);
+			game_event_subject_notify(new DrawPileUpdatedGameEvent(game_get_sorted_card_pile_list(draw_pile)));
 			game_event_subject_notify(new CardDrawnGameEvent(_card.entity_id,_card.card_data));
 		}
 	}
@@ -84,6 +87,8 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 			game_event_subject_notify(new CardDiscardedFromHandGameEvent(_card.entity_id,_card.card_data));
 		}
 		hand.empty_list();
+		game_event_subject_notify(new DrawPileUpdatedGameEvent(game_get_sorted_card_pile_list(draw_pile)));
+		game_event_subject_notify(new DiscardPileUpdatedGameEvent(game_get_sorted_card_pile_list(discard_pile)));
 	}
 	
 	/// @function game_discard_card
@@ -99,6 +104,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 				_card.card_location = new CardLocation(ZONE.DISCARD_PILE,-1);
 				hand.remove_item_at_index(i);
 				game_event_subject_notify(new CardDiscardedFromHandGameEvent(_card.entity_id,_card.card_data));
+				game_event_subject_notify(new DiscardPileUpdatedGameEvent(game_get_sorted_card_pile_list(discard_pile)));
 				break;
 			}
 		}
@@ -261,5 +267,20 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 			
 		game_event_subject_notify(new PredicamentRemovedGameEvent(predicament.predicament_data));
 		game_add_predicament();
+	}
+	
+	/// @function game_get_sorted_card_pile_list
+	/// @param card_pile
+	static game_get_sorted_card_pile_list = function(_card_pile)
+	{
+		var _card_list = _card_pile.copy_list();
+		_card_list.sort_list(function(_e1,_e2) {
+			if(_e1.card_data.name < _e2.card_data.name)
+				return -1;
+			if(_e1.card_data.name > _e2.card_data.name)
+				return 1;
+			return 0;
+		});
+		return _card_list;
 	}
 }

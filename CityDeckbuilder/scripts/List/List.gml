@@ -82,4 +82,21 @@ function List() constructor
 			items[j] = _temp;
 		}
 	}
+	
+	/// @function copy_list
+	static copy_list = function()
+	{
+		var _copy = new List();
+		_copy.num_items = num_items;
+		array_copy(_copy.items,0,items,0,num_items);
+		return _copy;
+	}
+	
+	
+	/// @function sort_list
+	/// @param sortType_or_function
+	static sort_list = function(_sortType_or_function)
+	{
+		array_sort(items,_sortType_or_function);
+	}
 }
