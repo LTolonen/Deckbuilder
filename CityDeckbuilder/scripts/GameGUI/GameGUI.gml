@@ -15,6 +15,7 @@ function GameGUI() : GUI() constructor
 	gui_reroll_button = new GUIRerollButton(self,10,gui_shop.height+20);
 	gui_predicament = -1;
 	gui_log = new GUILog(self,240,0);
+	gui_card_selector = -1;
 
 	game_event_queue = new List();
 	
