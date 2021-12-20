@@ -23,15 +23,21 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		//Populate Starter Deck
 		var _card_data;
 		_card_data = card_set.card_set_find_card_by_name("Coin");
-		repeat(7)
+		repeat(6)
 		{
 			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
 		}
 		_card_data = card_set.card_set_find_card_by_name("Crop");
-		repeat(3)
+		repeat(2)
 		{
 			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
 		}
+		_card_data = card_set.card_set_find_card_by_name("Soldier");
+		repeat(2)
+		{
+			discard_pile.add_item(new Card(entity_set, _card_data, new CardLocation(ZONE.DISCARD_PILE,-1)));
+		}
+		game_set_resource(RESOURCE.HEALTH,2);
 		
 		//Populate Shop
 		shop.shop_populate(self);
