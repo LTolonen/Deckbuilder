@@ -24,15 +24,21 @@ function predicament_set_init()
 	var _predicament_data;
 
 	_predicament_data = new PredicamentData("Invasion",5);
-	_predicament_data.predicament_data_set_resource_requirement(RESOURCE.POWER,10);
+	_predicament_data.predicament_data_set_resource_requirement_curve(RESOURCE.POWER,function(_level) {
+		return 10*_level;
+	});
 	predicament_set.predicament_set_add_predicament(_predicament_data);
 	
 	_predicament_data = new PredicamentData("Famine",5);
-	_predicament_data.predicament_data_set_resource_requirement(RESOURCE.FOOD,10);
+	_predicament_data.predicament_data_set_resource_requirement_curve(RESOURCE.FOOD,function(_level) {
+		return 10*_level;
+	});
 	predicament_set.predicament_set_add_predicament(_predicament_data);
 
 	_predicament_data = new PredicamentData("Taxation",5);
-	_predicament_data.predicament_data_set_resource_requirement(RESOURCE.MONEY,10);
+	_predicament_data.predicament_data_set_resource_requirement_curve(RESOURCE.MONEY,function(_level) {
+		return 10*_level;
+	});
 	predicament_set.predicament_set_add_predicament(_predicament_data);
 	
 	return predicament_set;

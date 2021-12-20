@@ -108,7 +108,7 @@ function GameWaitingGUIState(_gui) : GUIState(_gui, GUI_STATE_TYPE.GAME_WAITING)
 	/// @param game_event
 	static game_gui_on_predicament_added = function(_game_event)
 	{
-		gui.gui_predicament = new GUIPredicament(gui,640-GUI_PREDICAMENT_WIDTH-4,4,_game_event.predicament_data);
+		gui.gui_predicament = new GUIPredicament(gui,640-GUI_PREDICAMENT_WIDTH-4,4,_game_event.predicament_data, _game_event.level);
 	}
 	
 	/// @function game_gui_on_predicament_removed

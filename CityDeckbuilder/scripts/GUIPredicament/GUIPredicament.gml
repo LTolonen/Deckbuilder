@@ -10,9 +10,12 @@
 /// @param x
 /// @param y
 /// @param predicament_data
-function GUIPredicament(_gui, _x, _y, _predicament_data) : GUIElement(_gui,GUI_LAYER_PREDICAMENT,_x,_y,GUI_PREDICAMENT_WIDTH,GUI_PREDICAMENT_HEIGHT,"Predicament") constructor
+/// @param level
+function GUIPredicament(_gui, _x, _y, _predicament_data, _level) : GUIElement(_gui,GUI_LAYER_PREDICAMENT,_x,_y,GUI_PREDICAMENT_WIDTH,GUI_PREDICAMENT_HEIGHT,"Predicament") constructor
 {
 	predicament_data = _predicament_data;
+	level = _level;
+	resource_requirements = predicament_data.predicament_data_evaluate_resource_requirements(level);
 	turns_remaining = _predicament_data.turns;
 	
 	text_width = width-4*GUI_PREDICAMENT_TEXT_BORDER;
@@ -22,11 +25,11 @@ function GUIPredicament(_gui, _x, _y, _predicament_data) : GUIElement(_gui,GUI_L
 	var n = 0;
 	for(var i=0; i<RESOURCE.COUNT; i++)
 	{
-		if(predicament_data.resource_requirements[i] == 0)
+		if(resource_requirements[i] == 0)
 			continue;
 		if(n > 0)
 			_requirement_string += " | ";
-		_requirement_string += string(predicament_data.resource_requirements[i])+" "+resource_get_token_string(i);
+		_requirement_string += string(resource_requirements[i])+" "+resource_get_token_string(i);
 		n++;
 	}
 	var _tokens = string_tokenise(_requirement_string,FontVector7);

@@ -8,6 +8,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	hand = new List();
 	played_cards = new List();
 	shop = new Shop(SHOP_NUM_SLOTS, card_set);
+	level = 1;
 	predicament = -1;
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;
@@ -222,8 +223,8 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	/// @function game_add_predicament
 	static game_add_predicament = function()
 	{
-		predicament = new Predicament(predicament_set.predicament_set_choose_predicament());
-		game_event_subject_notify(new PredicamentAddedGameEvent(predicament.predicament_data));
+		predicament = new Predicament(predicament_set.predicament_set_choose_predicament(), level);
+		game_event_subject_notify(new PredicamentAddedGameEvent(predicament.predicament_data, level));
 	}
 	
 	/// @function game_tick_down_predicament
@@ -240,7 +241,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		var _cleared = true;
 		for(var i=0; i<RESOURCE.COUNT; i++)
 		{
-			var _requirement = predicament.predicament_data.resource_requirements[i];
+			var _requirement = predicament.resource_requirements[i];
 			if(_requirement <= 0)
 				continue;
 			if(resources[i] <= _requirement)
