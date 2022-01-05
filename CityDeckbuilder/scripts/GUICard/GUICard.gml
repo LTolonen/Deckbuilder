@@ -141,19 +141,19 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		draw_tokenised_text(x+width div 2,y+GUI_CARD_HEADER_HEIGHT+GUI_CARD_ART_BOX_HEIGHT+GUI_CARD_TEXT_BORDER+text_height div 2,text_fitting,fa_center,fa_middle);
 		
 		//Energy Cost
-		if(card_data.energy_cost > 0)
+		if(card_data.worker_cost > 0)
 		{
 			var _icon_x = x+width-17-1;
 			var _icon_y = y+GUI_CARD_HEADER_HEIGHT+1
-			gpu_set_fog(true,resource_get_colour(RESOURCE.ENERGY),0,0);
-			draw_sprite(SprResourceIcons,RESOURCE.ENERGY,_icon_x,_icon_y);
+			gpu_set_fog(true,resource_get_colour(RESOURCE.WORKERS),0,0);
+			draw_sprite(SprResourceIcons,RESOURCE.WORKERS,_icon_x,_icon_y);
 			gpu_set_fog(false,COLOUR.WHITE,0,0);
 			
 			draw_set_color(COLOUR.WHITE);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_middle);
 			draw_set_font(FontVector7);
-			draw_text(_icon_x+9,_icon_y+10,string(card_data.energy_cost));
+			draw_text(_icon_x+9,_icon_y+10,string(card_data.worker_cost));
 		}
 		
 		//Buy Cost

@@ -68,8 +68,8 @@ function string_tokenise(_text, _font)
 			case "{H}":
 				_tokens[i] = new SpriteToken(SprResourceIcons,RESOURCE.HEALTH,resource_get_colour(RESOURCE.HEALTH));
 				break;
-			case "{E}":
-				_tokens[i] = new SpriteToken(SprResourceIcons,RESOURCE.ENERGY,resource_get_colour(RESOURCE.ENERGY));
+			case "{W}":
+				_tokens[i] = new SpriteToken(SprResourceIcons,RESOURCE.WORKERS,resource_get_colour(RESOURCE.WORKERS));
 				break;
 			case "{M}":
 				_tokens[i] = new SpriteToken(SprResourceIcons,RESOURCE.MONEY,resource_get_colour(RESOURCE.MONEY));

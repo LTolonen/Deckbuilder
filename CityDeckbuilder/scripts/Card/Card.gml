@@ -15,7 +15,7 @@ function Card(_entity_set, _card_data, _card_location) : Entity(_entity_set,"Car
 			return false;
 		if(card_location.zone != ZONE.HAND)
 			return false;
-		if(card_data.energy_cost > _game_state.resources[RESOURCE.ENERGY])
+		if(card_data.worker_cost > _game_state.resources[RESOURCE.WORKERS])
 			return false;
 		return true;	
 	}

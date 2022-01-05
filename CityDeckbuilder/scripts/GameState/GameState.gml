@@ -12,7 +12,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	predicament = -1;
 	resources = array_create(RESOURCE.COUNT,0);
 	turn_number = 0;
-	energy_max = 1;
+	workers_max = 2;
 	
 	
 	/// @function game_init
@@ -123,10 +123,10 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		game_event_subject_notify(new CardsDiscardedFromPlayGameEvent());
 	}
 	
-	/// @function game_refill_energy
-	static game_refill_energy = function()
+	/// @function game_refill_workers
+	static game_refill_workers = function()
 	{
-		game_set_resource(RESOURCE.ENERGY,energy_max);	
+		game_set_resource(RESOURCE.WORKERS,workers_max);	
 	}
 	
 	/// @function game_change_resource
@@ -154,7 +154,7 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 		turn_number++;
 		game_event_subject_notify(new TurnBeginGameEvent(turn_number));
 		shop.shop_set_reroll_cost(self,1);
-		game_refill_energy();
+		game_refill_workers();
 		repeat(5)
 		{
 			game_draw_card();	
@@ -174,9 +174,9 @@ function GameState(_card_set, _predicament_set) : GameEventSubject() constructor
 	static game_play_card = function(_card_entity_id)
 	{
 		var _card = entity_set.entity_set_get_entity(_card_entity_id);
-		if(_card.card_data.energy_cost != 0)
+		if(_card.card_data.worker_cost != 0)
 		{
-			game_change_resource(RESOURCE.ENERGY,-_card.card_data.energy_cost);
+			game_change_resource(RESOURCE.WORKERS,-_card.card_data.worker_cost);
 		}
 		for(var i=0; i<_card.card_data.num_on_play_effects; i++)
 		{

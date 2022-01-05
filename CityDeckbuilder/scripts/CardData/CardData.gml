@@ -1,7 +1,7 @@
 enum CARD_FRAME_TYPE
 {
 	ACTION,
-	ENERGY,
+	WORKERS,
 	MONEY,
 	POWER,
 	FOOD
@@ -10,15 +10,15 @@ enum CARD_FRAME_TYPE
 /// @function CardData
 /// @param name
 /// @param buy_cost
-/// @param energy_cost
+/// @param worker_cost
 /// @param strength 
 /// @param text
 /// @param frame_type
-function CardData(_name, _buy_cost, _energy_cost, _strength, _text, _frame_type) constructor
+function CardData(_name, _buy_cost, _worker_cost, _strength, _text, _frame_type) constructor
 {
 	name = _name;
 	buy_cost = _buy_cost;
-	energy_cost = _energy_cost;
+	worker_cost = _worker_cost;
 	strength = _strength;
 	text = _text;
 	text_tokenised = string_tokenise(_text,FontVector7);
@@ -44,7 +44,7 @@ function card_frame_type_get_colour(_frame_type)
 	switch(_frame_type)	
 	{
 		case CARD_FRAME_TYPE.ACTION: return COLOUR.RED;	
-		case CARD_FRAME_TYPE.ENERGY: return COLOUR.BLUE;
+		case CARD_FRAME_TYPE.WORKERS: return COLOUR.BLUE;
 		case CARD_FRAME_TYPE.MONEY: return COLOUR.ORANGE;
 		case CARD_FRAME_TYPE.POWER: return COLOUR.LAVENDAR;
 		case CARD_FRAME_TYPE.FOOD: return COLOUR.GREEN;
@@ -60,7 +60,7 @@ function card_frame_type_get_background_colour(_frame_type)
 	switch(_frame_type)	
 	{
 		case CARD_FRAME_TYPE.ACTION: return COLOUR.DARKEST_RED;	
-		case CARD_FRAME_TYPE.ENERGY: return COLOUR.DARKEST_BLUE;
+		case CARD_FRAME_TYPE.WORKERS: return COLOUR.DARKEST_BLUE;
 		case CARD_FRAME_TYPE.MONEY: return COLOUR.DARKEST_ORANGE;
 		case CARD_FRAME_TYPE.POWER: return COLOUR.DARKEST_BLUE;
 		case CARD_FRAME_TYPE.FOOD: return COLOUR.DARKEST_GREEN;

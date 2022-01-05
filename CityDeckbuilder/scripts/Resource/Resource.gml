@@ -1,7 +1,7 @@
 enum RESOURCE
 {
 	HEALTH = 0,
-	ENERGY = 1,
+	WORKERS = 1,
 	MONEY = 2,
 	POWER = 3,
 	FOOD = 4,
@@ -10,8 +10,8 @@ enum RESOURCE
 
 global.RESOURCE_COLOURS = [COLOUR.RED,COLOUR.BLUE,COLOUR.ORANGE, COLOUR.LAVENDAR, COLOUR.GREEN];
 global.RESOURCE_BACKGROUND_COLOURS = [COLOUR.DARKEST_RED,COLOUR.DARKEST_BLUE,COLOUR.DARKEST_ORANGE,COLOUR.DARKEST_BLUE,COLOUR.DARKEST_GREEN];
-global.RESOURCE_NAMES = ["Health", "Energy", "Money", "Power", "Food"];
-global.RESOURCE_TOKEN_STRINGS = ["{H}","{E}","{M}","{P}","{F}"];
+global.RESOURCE_NAMES = ["Health", "WORKERS", "Money", "Power", "Food"];
+global.RESOURCE_TOKEN_STRINGS = ["{H}","{W}","{M}","{P}","{F}"];
 
 /// @function resource_get_colour
 /// @param resource

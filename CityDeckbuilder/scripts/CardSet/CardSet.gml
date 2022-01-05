@@ -63,13 +63,13 @@ function card_set_init()
 	card_set.card_set_add_card(_card_data);
 	card_set.card_pool_general.pool_add_item(_card_data,3);
 	
-	_card_data = new CardData("Generator",2,0,0,"Gain 1 {E} .",CARD_FRAME_TYPE.ENERGY);
-	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.ENERGY,1));
+	_card_data = new CardData("Generator",2,0,0,"Gain 1 {W} .",CARD_FRAME_TYPE.WORKERS);
+	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.WORKERS,1));
 	card_set.card_set_add_card(_card_data);
 	card_set.card_pool_general.pool_add_item(_card_data,3);
 	
-	_card_data = new CardData("Village",3,1,0,"Gain 2 {E} . \n Draw a card.",CARD_FRAME_TYPE.ENERGY);
-	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.ENERGY,2));
+	_card_data = new CardData("Village",3,1,0,"Gain 2 {W} . \n Draw a card.",CARD_FRAME_TYPE.WORKERS);
+	_card_data.card_data_add_effect(new ResourceGainEffect(RESOURCE.WORKERS,2));
 	_card_data.card_data_add_effect(new CardDrawEffect(1));
 	card_set.card_set_add_card(_card_data);
 	card_set.card_pool_general.pool_add_item(_card_data,3);
