@@ -129,7 +129,7 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 			draw_cornered_rectangle(x+GUI_CARD_TEXT_BORDER,y+GUI_CARD_HEADER_HEIGHT+GUI_CARD_ART_BOX_HEIGHT+GUI_CARD_TEXT_BORDER,x+width-1-GUI_CARD_TEXT_BORDER,y+height-1-GUI_CARD_TEXT_BORDER,bg_colour,SprCornerRounded2Px);
 		
 		//Name
-		draw_set_color(bg_colour);
+		draw_set_color(COLOUR.BLUE_BLACK);
 		draw_set_halign(fa_center);
 		draw_set_valign(fa_top);
 		draw_set_font(FontVector7);

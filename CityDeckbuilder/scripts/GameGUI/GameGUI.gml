@@ -19,8 +19,6 @@ function GameGUI() : GUI() constructor
 	gui_log = new GUILog(self,240,0);
 	gui_card_selector = -1;
 	
-	
-
 	game_event_queue = new List();
 	
 	enter_gui_state(new GameWaitingGUIState(self));
