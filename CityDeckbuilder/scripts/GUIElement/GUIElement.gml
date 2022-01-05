@@ -35,6 +35,7 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 	static draw = -1;
 	static update = -1;
 	static cleanup = -1;
+	static on_resize = -1;
 	static on_enter_gui_state = -1;
 	static on_click = -1;
 	static on_click_down = -1;
@@ -125,12 +126,31 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 		}
 	}
 	
-	///@function move_to
-	///@param x
-	///@param y
+	/// @function move_to
+	/// @param x
+	/// @param y
 	static move_to = function(_x,_y)
 	{
 		move_by(_x-x,_y-y);
+	}
+	
+	/// @function resize
+	/// @param width
+	/// @param height
+	static resize = function(_width, _height)
+	{
+		if(_width == width && _height == height)
+			return;
+		width = _width;
+		height = _height;
+		fit_to_parent_element();
+		var _num_children = array_length(children);
+		for(var i=0; i<_num_children; i++)
+		{
+			children[i].fit_to_parent_element();
+		}
+		if(on_resize != -1)
+			on_resize();
 	}
 	
 	/// @function fit_to_parent_element
@@ -177,14 +197,21 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 		}
 		if(_size_updated)
 		{
-			width = _new_width;
-			height = _new_height;
-			var _num_children = array_length(children);
-			for(var i=0; i<_num_children; i++)
-			{
-				children[i].fit_to_parent_element();
-			}
+			resize(_new_width,_new_height);
 		}
+	}
+	
+	/// @function set_alignment_to_parent_element
+	/// @param aligh_left
+	/// @param aligh_right
+	/// @param aligh_top
+	/// @param aligh_bottom
+	static set_alignment_to_parent_element = function(_align_left, _align_right, _align_top, _align_bottom)
+	{
+		align_left_to_parent = _align_left;
+		align_right_to_parent = _align_right;
+		align_top_to_parent = _align_top;
+		align_bottom_to_parent = _align_bottom;
 	}
 	
 	/// @function is_hovered
