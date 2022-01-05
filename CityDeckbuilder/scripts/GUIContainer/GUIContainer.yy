@@ -6,7 +6,7 @@
     "path": "folders/GUI/General.yy",
   },
   "resourceVersion": "1.0",
-  "name": "GUIScaledView",
+  "name": "GUIContainer",
   "tags": [],
   "resourceType": "GMScript",
 }

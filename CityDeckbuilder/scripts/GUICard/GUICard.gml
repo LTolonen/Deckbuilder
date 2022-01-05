@@ -74,8 +74,8 @@ function GUICard(_gui, _x, _y, _card_data, _card_entity_id) : GUIElement(_gui,GU
 		var ty = target_center_y;
 		if(is_hovered())
 		{
-			tx = clamp(tx,width/2,640-width/2);
-			ty = clamp(ty,height/2,360-height/2);
+			tx = clamp(tx,width/2,gui.canvas.width-width/2);
+			ty = clamp(ty,height/2,gui.canvas.height-height/2);
 		}
 			
 		var _dx = (tx - width div 2) - x;

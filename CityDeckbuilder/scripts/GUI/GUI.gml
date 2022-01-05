@@ -2,9 +2,7 @@ function GUI() constructor
 {	
 	window_width = window_get_width();
 	window_height = window_get_height();
-	view = new GUIScaledView(self,640,360);
-
-	gui_elements = array_create();
+	gui_elements = array_create(0);
 	
 	gui_state = new GUIState(self,GUI_STATE_TYPE.NONE);
 	
@@ -12,7 +10,7 @@ function GUI() constructor
 	selected_element = -1;
 	clicked_element = -1;
 	
-	on_resize = -1;
+	canvas = new GUIScaledCanvas(self,640,360);
 	
 	/// @function add_gui_element
 	/// @param gui_element
@@ -62,14 +60,12 @@ function GUI() constructor
 	{
 		if(window_width != window_get_width() || window_height != window_get_height())
 		{
-			if(window_width > 0) //Check window isn't minimised
+			if(window_get_width() > 0) //Check window isn't minimised
 			{
 				window_width = window_get_width();
 				window_height = window_get_height();
 				surface_resize(application_surface,window_width,window_height);
-				view.fit_to_window();
-				if(on_resize != -1)
-					on_resize();
+				canvas.fit_to_window();
 			}
 		}
 		if(gui_state.update != -1)

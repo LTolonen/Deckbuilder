@@ -7,6 +7,9 @@
 function GUIHand(_gui, _x, _y, _width, _height) : GUIElement(_gui, GUI_LAYER_CARDS,_x, _y, _width, _height, "Hand") constructor
 {
 	gui_cards = new List();
+	align_left_to_parent = true;
+	align_right_to_parent = true;
+	align_bottom_to_parent = true;
 	
 	static update = function()
 	{
@@ -35,5 +38,13 @@ function GUIHand(_gui, _x, _y, _width, _height) : GUIElement(_gui, GUI_LAYER_CAR
 			return;
 		gui_cards.remove_item(_gui_card);
 		_gui_card.card_location = new CardLocation(ZONE.NONE,-1);
+	}
+	
+	static draw = function()
+	{
+		draw_set_color(COLOUR.DARKEST_BROWN);
+		draw_rectangle(x,y+20,x+width-1,y+height-1,false);
+		draw_set_color(COLOUR.DARK_BROWN);
+		draw_rectangle(x,y+20,x+width-1,y+22,false);
 	}
 }

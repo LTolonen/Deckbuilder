@@ -22,6 +22,11 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 	hoverable = true;
 	selectable = true;
 	
+	align_left_to_parent = false;
+	align_right_to_parent = false;
+	align_top_to_parent = false;
+	align_bottom_to_parent = false;
+	
 	parent_element = -1;
 	children = array_create(0);
 	
@@ -133,10 +138,53 @@ function GUIElement(_gui, _depth, _x, _y, _width, _height, _gui_element_type) co
 	{
 		if(parent_element == -1)
 			return;
-		x = parent_element.x+parent_element.padding;
-		y = parent_element.y+parent_element.padding;
-		width = parent_element.width-2*parent_element.padding;
-		height = parent_element.height-2*parent_element.padding;
+		var _new_x = x;
+		var _new_y = y;
+		var _new_width = width;
+		var _new_height = height;
+		
+		if(align_left_to_parent)
+		{
+			_new_x = parent_element.x;
+			if(align_right_to_parent)
+			{
+				_new_width = parent_element.width;
+			}
+		}
+		else if(align_right_to_parent)
+		{
+			_new_x = parent_element.x + parent_element.width - width;	
+		}
+		
+		if(align_top_to_parent)
+		{
+			_new_y = parent_element.y;
+			if(align_bottom_to_parent)
+			{
+				_new_height = parent_element.height;
+			}
+		}
+		else if(align_bottom_to_parent)
+		{
+			_new_y = parent_element.y + parent_element.height - height;	
+		}
+		
+		var _position_updated = x != _new_x || y != _new_y;
+		var _size_updated = width != _new_width || height != _new_height;
+		if(_position_updated)
+		{
+			move_to(_new_x,_new_y);	
+		}
+		if(_size_updated)
+		{
+			width = _new_width;
+			height = _new_height;
+			var _num_children = array_length(children);
+			for(var i=0; i<_num_children; i++)
+			{
+				children[i].fit_to_parent_element();
+			}
+		}
 	}
 	
 	/// @function is_hovered

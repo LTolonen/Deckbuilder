@@ -9,7 +9,8 @@ function GameGUI() : GUI() constructor
 	{
 		gui_resource_indicators[i] = new GUIResourceIndicator(self,640-10-GUI_RESOURCE_INDICATOR_WIDTH*(RESOURCE.COUNT-i),160,i,0);
 	}
-	gui_hand = new GUIHand(self,20,240,600,120);
+	gui_hand = new GUIHand(self,0,240,640,120);
+	gui_hand.set_parent_element(canvas);
 	gui_play_area = new GUIPlayArea(self,0,120,400,120);
 	gui_end_turn_button = new GUIEndTurnButton(self,640-80-10,210);
 	gui_draw_pile_button = new GUIDrawPileButton(self,640-80-30-56,210);
